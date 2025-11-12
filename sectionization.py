@@ -8,7 +8,7 @@ KEYWORDS_DICT = {
     "projects": ["project name", "project title", "projects", "personal projects", "key projects"],
     "introduction": ["introduction", "contact", "details", "personal", "basic information", "personal information"],
     "courses": ["courses", "coursework", "related coursework", "workshops", "training", "professional development", "certified courses"],
-    "skills": ["skills", "competencies", "expertise", "strength", "technical skills", "core competencies", "skill set", "technologies"],
+    "skills": ["skills", "competencies", "expertise", "strength", "technical skills", "core competencies", "skill set", "technologies", "tools and technologies", "languages tools and technologies", "tools technologies", "technologies and tools", "technical expertise"],
     "summary": ["summary", "overview", "profile", "profile summary", "professional summary", "career summary"],
     "achievements": ["accomplishments", "achievements", "awards", "honors", "recognition", "accolades"],
     "affiliations": ["affiliations", "memberships", "associations", "professional memberships"],
@@ -83,7 +83,14 @@ RESUME_SECTIONS_DICT = {
         "technical expertise",
         "core skills",
         "key skills",
-        "professional skills"
+        "professional skills",
+        "tools and technologies",
+        "languages tools and technologies",
+        "languages tools technologies",
+        "tools technologies web servers",
+        "tools technologies",
+        r"tools[\s,]+technologies",
+        r"languages[\s,]+tools[\s,]+and[\s,]+technologies"
     ],
     "projects": [
         "projects",
@@ -124,6 +131,7 @@ STRONG_SECTION_KEYWORDS = [
     # > skills related
     "skills", "technical skills", "core competencies", "competencies", "expertise",
     "skill set", "technical expertise", "core skills", "key skills",
+    "tools and technologies", "languages tools and technologies", "tools technologies",
 
     # > projects related
     "projects", "key projects", "personal projects", "academic projects", "project experience",
