@@ -4,102 +4,207 @@ from datetime import datetime
 
 # > DICTIONARIES AND CONFIGURATION
 # > main section keywords dictionary -> covers most resume sections
+# > COMPREHENSIVE - handles all possible naming variations
 KEYWORDS_DICT = {
-    "projects": ["project name", "project title", "projects", "personal projects", "key projects"],
-    "introduction": ["introduction", "contact", "details", "personal", "basic information", "personal information"],
-    "courses": ["courses", "coursework", "related coursework", "workshops", "training", "professional development", "certified courses"],
-    "skills": ["skills", "competencies", "expertise", "strength", "technical skills", "core competencies", "skill set", "technologies", "tools and technologies", "languages tools and technologies", "tools technologies", "technologies and tools", "technical expertise"],
-    "summary": ["summary", "overview", "profile", "profile summary", "professional summary", "career summary"],
-    "achievements": ["accomplishments", "achievements", "awards", "honors", "recognition", "accolades"],
-    "affiliations": ["affiliations", "memberships", "associations", "professional memberships"],
-    "objective": ["objectives", "career objective", "professional objective", "goal"],
-    "interests": ["interests", "hobbies", "personal interests", "activities"],
-    "certifications": ["certify", "license", "qualify", "chartered", "register", "accredit", "diploma", "fellow", "certifications", "certificates", "professional certifications", "certified courses"],
-    "references": ["references", "recommendations", "testimonials", "endorsements"],
-    "publications": ["publications", "conferences", "journals", "meets", "summits", "seminars", "talks", "presentations", "patents", "research papers"],
-    "activities": ["activities", "participations", "involvement", "service", "volunteer", "engagement", "extracurricular", "community service"],
-    "D.O.B": ["date of birth", "dob", "d.o.b", "birth date"],
+    "projects": ["project name", "project title", "projects", "personal projects", "key projects",
+                 "academic projects", "professional projects", "project experience", "project work",
+                 "project details", "project description", "major projects", "relevant projects"],
+
+    "introduction": ["introduction", "contact", "details", "personal", "basic information",
+                     "personal information", "contact information", "contact details", "about me",
+                     "personal details", "bio", "biography"],
+
+    "courses": ["courses", "coursework", "related coursework", "workshops", "training",
+                "professional development", "certified courses", "relevant coursework",
+                "academic coursework", "trainings", "course work", "training programs",
+                "certifications and training"],
+
+    "skills": ["skills", "competencies", "expertise", "strength", "technical skills",
+               "core competencies", "skill set", "technologies", "tools and technologies",
+               "languages tools and technologies", "tools technologies", "technologies and tools",
+               "technical expertise", "core skills", "key skills", "professional skills",
+               "technical proficiency", "areas of expertise", "technology stack", "tech stack",
+               "languages and tools", "tools", "programming languages", "technology skills",
+               "languages tools technologies", "tools technologies web servers"],
+
+    "summary": ["summary", "overview", "profile", "profile summary", "professional summary",
+                "career summary", "executive summary", "career overview", "professional profile",
+                "career profile", "about", "objective summary", "introduction summary"],
+
+    "achievements": ["accomplishments", "achievements", "awards", "honors", "recognition",
+                     "accolades", "awards and honors", "awards and achievements",
+                     "honors and awards", "recognitions", "certificates awards achievements"],
+
+    "affiliations": ["affiliations", "memberships", "associations", "professional memberships",
+                     "professional affiliations", "memberships and affiliations"],
+
+    "objective": ["objectives", "career objective", "professional objective", "goal",
+                  "career goals", "career aspiration", "professional goals", "objective"],
+
+    "interests": ["interests", "hobbies", "personal interests", "hobbies and interests",
+                  "extra curricular", "extracurricular activities", "personal hobbies"],
+
+    "certifications": ["certify", "license", "qualify", "chartered", "register", "accredit",
+                       "diploma", "fellow", "certifications", "certificates",
+                       "professional certifications", "certified courses", "licenses",
+                       "certification", "professional licenses", "credentials"],
+
+    "references": ["references", "recommendations", "testimonials", "endorsements",
+                   "professional references", "reference"],
+
+    "publications": ["publications", "conferences", "journals", "meets", "summits", "seminars",
+                     "talks", "presentations", "patents", "research papers", "papers",
+                     "research", "published work", "conference papers"],
+
+    "activities": ["activities", "participations", "involvement", "service", "volunteer",
+                   "engagement", "extracurricular", "community service", "volunteer work",
+                   "extra curricular activities", "extracurricular activities",
+                   "volunteer experience", "community involvement", "agile tools"],
+
+    "D.O.B": ["date of birth", "dob", "d.o.b", "birth date", "date of birth"],
+
     "gender": ["gender", "sex"],
-    "experience": ["professional experience", "work experience", "employment history", "career history", "experience", "work history", "employment", "appointments", "previous positions", "business exposure", "current profile", "job profile", "professional background"]
+
+    "experience": ["professional experience", "work experience", "employment history",
+                   "career history", "experience", "work history", "employment", "appointments",
+                   "previous positions", "business exposure", "current profile", "job profile",
+                   "professional background", "job experience", "work", "career",
+                   "employment background", "work experiences", "job history", "career background",
+                   "professional work", "job experiences", "working experience", "work exp"]
 }
 
 # > resume sections with regex patterns for flexible matching
+# > COMPREHENSIVE - covers all possible variations and formats
 RESUME_SECTIONS_DICT = {
     "experience": [
-        r"work[\s]{1,}experience[s]?",
+        r"work[\s]{0,}experience[s]?",
         r".*workexperience.*",
         r"professional[\s]{0,}experience[s]?",
-        r"organisational contour",
-        r"employment scan",
-        r"employment background",
-        r"career[\s]{0,}history",
+        r"job[\s]{0,}experience[s]?",
         r"employment[\s]{0,}history",
-        r"experience[s]?",
+        r"career[\s]{0,}history",
         r"work[\s]{0,}history",
+        r"job[\s]{0,}history",
+        r"employment[\s]{0,}background",
+        r"professional[\s]{0,}background",
+        r"career[\s]{0,}background",
+        r"experience[\s]*:?[\s]*\d*[\s]*\w*",  # Handles "EXPERIENCE: 4 years"
+        r"experience[s]?",
+        r"employment",
         r"appointments",
         r"previous[\s]{0,}positions",
         r"business[\s]{0,}exposure",
         r"current[\s]{0,}profile",
         r"job[\s]{0,}profile",
+        r"working[\s]{0,}experience",
+        r"work[\s]{0,}exp",
         "experience",
         "professional experience",
         "work experience",
+        "job experience",
         "employment history",
+        "career history",
+        "work history",
+        "job history",
         "career background",
-        "professional background"
+        "professional background",
+        "employment background",
+        "work",
+        "career",
+        "employment",
+        "job experiences",
+        "work experiences",
+        "working experience"
     ],
     "education": [
-        r"education(al)?",
+        r"education(al)?[\s]{0,}",
         r"academic[\s]{0,}background",
         r"academic[\s]{0,}history",
-        r"qualifications",
-        r"academic[s]?",
+        r"education(al)?[\s]{0,}background",
         r"education(al)?[\s]{0,}qualification[s]?",
+        r"education(al)?[\s]{0,}details",
+        r"academic[\s]{0,}record",
+        r"academic[\s]{0,}qualifications",
         r"scholastic[\s]{0,}achievements",
+        r"educational[\s]{0,}history",
+        "education",
+        "educational",
+        "academic background",
+        "academic history",
+        "qualifications",
+        "academic qualifications",
+        "educational background",
+        "educational qualifications",
         "highest education",
         "professional qualification",
         "education history",
         "scholastics",
         "scholastic",
         "academia",
-        "ducation",
-        "cgpa",
-        "b.tech",
-        "cation",
         "academic record",
-        r"academic[\s]{0,}record",
-        "educational background",
-        "academic qualifications",
-        "degrees"
+        "degrees",
+        "academic details",
+        "educational details",
+        "academics"
     ],
     "skills": [
+        r"technical[\s]{0,}skills",
+        r"core[\s]{0,}competencies",
+        r"tools[\s,]*and[\s,]*technologies",
+        r"languages[\s,]*tools[\s,]*and[\s,]*technologies",
+        r"languages[\s,]*tools[\s,]*technologies",
+        r"tools[\s,]*technologies[\s,]*web[\s,]*servers",
+        r"tools[\s,]*technologies",
+        r"technology[\s]{0,}stack",
+        r"tech[\s]{0,}stack",
+        r"programming[\s]{0,}languages",
         "skills",
         "technical skills",
         "core competencies",
         "competencies",
         "expertise",
-        # "technologies", # work experience massup ->
         "skill set",
         "technical expertise",
         "core skills",
         "key skills",
         "professional skills",
+        "technical proficiency",
+        "areas of expertise",
+        "technology stack",
+        "tech stack",
         "tools and technologies",
+        "languages and tools",
         "languages tools and technologies",
         "languages tools technologies",
         "tools technologies web servers",
         "tools technologies",
-        r"tools[\s,]+technologies",
-        r"languages[\s,]+tools[\s,]+and[\s,]+technologies"
+        "tools",
+        "programming languages",
+        "technology skills",
+        "technologies"
     ],
     "projects": [
+        r"project[s]?[\s]{0,}",
+        r"personal[\s]{0,}project[s]?",
+        r"academic[\s]{0,}project[s]?",
+        r"professional[\s]{0,}project[s]?",
+        r"key[\s]{0,}project[s]?",
+        r"project[\s]{0,}experience",
+        r"project[\s]{0,}work",
+        r"project[\s]{0,}description",
+        r"project[\s]{0,}details",
         "projects",
         "project",
         "key projects",
         "personal projects",
         "academic projects",
         "professional projects",
-        "project experience"
+        "project experience",
+        "project work",
+        "project details",
+        "project description",
+        "major projects",
+        "relevant projects"
     ]
 }
 
@@ -119,27 +224,58 @@ STOP_WORDS = [
 ]
 
 # > strong section indicators - high confidence keywords
+# > COMPREHENSIVE - all variations for maximum detection
 STRONG_SECTION_KEYWORDS = [
-    # > experience related
-    "experience", "professional experience", "work experience", "employment history",
-    "career history", "work history", "professional background", "employment background",
+    # > experience related (EXPANDED)
+    "experience", "professional experience", "work experience", "job experience",
+    "employment history", "career history", "work history", "job history",
+    "professional background", "employment background", "career background",
+    "employment", "work", "career", "job experiences", "work experiences",
+    "working experience", "job profile", "work exp", "professional work",
 
-    # > education related
+    # > education related (EXPANDED)
     "education", "educational background", "academic background", "qualifications",
-    "academic qualifications", "degrees", "academic record",
+    "academic qualifications", "educational qualifications", "degrees", "academic record",
+    "educational details", "academic details", "academics", "educational history",
+    "academic history", "scholastics", "scholastic", "academia",
 
-    # > skills related
+    # > skills related (EXPANDED)
     "skills", "technical skills", "core competencies", "competencies", "expertise",
-    "skill set", "technical expertise", "core skills", "key skills",
-    "tools and technologies", "languages tools and technologies", "tools technologies",
+    "skill set", "technical expertise", "core skills", "key skills", "professional skills",
+    "technical proficiency", "areas of expertise", "technology stack", "tech stack",
+    "tools and technologies", "languages and tools", "languages tools and technologies",
+    "languages tools technologies", "tools technologies web servers", "tools technologies",
+    "tools", "programming languages", "technology skills", "technologies",
 
-    # > projects related
-    "projects", "key projects", "personal projects", "academic projects", "project experience",
+    # > projects related (EXPANDED)
+    "projects", "project", "key projects", "personal projects", "academic projects",
+    "professional projects", "project experience", "project work", "project details",
+    "project description", "major projects", "relevant projects",
 
-    # > other common sections
-    "achievements", "accomplishments", "awards", "certifications", "certificates",
-    "summary", "profile", "objective", "interests", "activities", "publications",
-    "references", "contact", "personal information", "courses", "certified courses"
+    # > summary related (EXPANDED)
+    "summary", "professional summary", "career summary", "executive summary",
+    "profile", "professional profile", "career profile", "profile summary",
+    "career overview", "overview", "about", "introduction summary",
+
+    # > achievements related (EXPANDED)
+    "achievements", "accomplishments", "awards", "honors", "recognition", "accolades",
+    "awards and honors", "awards and achievements", "honors and awards",
+    "additional experience and awards", "certificates awards achievements",
+
+    # > certifications related (EXPANDED)
+    "certifications", "certificates", "professional certifications", "licenses",
+    "certification", "professional licenses", "credentials", "certified courses",
+
+    # > other common sections (EXPANDED)
+    "objective", "career objective", "professional objective", "career goals",
+    "interests", "hobbies", "personal interests", "hobbies and interests",
+    "activities", "extracurricular activities", "extra curricular activities",
+    "volunteer", "volunteer work", "community service", "agile tools",
+    "publications", "research", "papers", "conference papers",
+    "references", "professional references", "recommendations",
+    "contact", "contact information", "contact details", "personal information",
+    "courses", "coursework", "training", "trainings", "certified courses",
+    "course work", "relevant coursework", "related coursework"
 ]
 
 # > words that indicate content rather than headers -> (negative indicators)
@@ -161,13 +297,24 @@ CONTENT_INDICATORS = [
 ]
 
 # > common section header patterns (regex)
+# > COMPREHENSIVE - handles all formatting styles
 SECTION_HEADER_PATTERNS = [
-    r'^[A-Z\s&-]{2,20}$',  # > ALL CAPS headers like "WORK EXPERIENCE"
+    r'^[A-Z\s&-]{2,30}$',  # > ALL CAPS headers like "WORK EXPERIENCE"
+    r'^[A-Z\s&-]{2,30}:$',  # > ALL CAPS with colon like "WORK EXPERIENCE:"
+    r'^[A-Z\s&-]{2,30}:\s*.+$',  # > ALL CAPS with colon and text like "EXPERIENCE: 4 years"
     r'^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*$',  # > Title Case like "Work Experience"
-    r'^[A-Za-z\s]+:$',  # > headers ending with colon like "Skills:"
-    r'^\d+\.\s*[A-Za-z\s]+$',  # > numbered headers like "1. Experience"
-    r'^•\s*[A-Za-z\s]+$',  # > bulleted headers like "• Technical Skills"
+    r'^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*:$',  # > Title Case with colon
+    r'^[A-Za-z\s,&-]+:$',  # > headers ending with colon like "Skills:" or "Tools,Technologies:"
+    r'^\*\*[A-Za-z\s]+\*\*$',  # > Bold markdown like "**SKILLS**"
+    r'^##\s+[A-Za-z\s]+$',  # > Markdown H2 like "## Skills"
+    r'^###\s+[A-Za-z\s]+$',  # > Markdown H3 like "### Skills"
+    r'^#\s+[A-Za-z\s]+$',  # > Markdown H1 like "# Skills"
+    r'^\d+\.\s*[A-Za-z\s]+:?$',  # > numbered headers like "1. Experience" or "1. Experience:"
+    r'^•\s*[A-Za-z\s]+:?$',  # > bulleted headers like "• Technical Skills"
+    r'^-\s*[A-Za-z\s]+:?$',  # > dash bullets like "- Skills"
     r'^-+\s*[A-Za-z\s]+\s*-+$',  # > dashed headers like "--- Skills ---"
+    r'^\*\s*[A-Za-z\s]+:?$',  # > asterisk bullets like "* Skills"
+    r'^[A-Z][A-Z\s,&-]{2,30}$',  # > Mixed caps like "TOOLS,TECHNOLOGIES"
 ]
 
 # > HELPER FUNCTIONS
@@ -506,54 +653,151 @@ def determine_section_name(line):
     if not line:
         return None
 
-    line_stripped = line.strip().upper()
+    # Remove markdown, bold markers, and colons for matching
+    line_clean = line.strip()
+    line_clean = re.sub(r'^[#\*\-•\s]+', '', line_clean)  # Remove markdown/bullets at start
+    line_clean = re.sub(r'\*\*', '', line_clean)  # Remove bold markers
+    line_clean = line_clean.rstrip(':.,;!?')  # Remove trailing punctuation
+    line_stripped = line_clean.upper().strip()
 
-    # > direct matches for common sections (highest priority)
-    if line_stripped == "CERTIFICATIONS":
-        return "certifications"
-    if line_stripped == "EDUCATION":
-        return "education"
-    if line_stripped == "EXPERIENCE" or line_stripped == "WORK EXPERIENCE":
+    # > COMPREHENSIVE direct matches (handles variations with/without colons, etc.)
+
+    # Experience variations
+    if line_stripped in ["EXPERIENCE", "WORK EXPERIENCE", "JOB EXPERIENCE", "PROFESSIONAL EXPERIENCE",
+                         "EMPLOYMENT HISTORY", "CAREER HISTORY", "WORK HISTORY", "JOB HISTORY",
+                         "EMPLOYMENT", "CAREER", "WORK", "EMPLOYMENT BACKGROUND", "CAREER BACKGROUND",
+                         "PROFESSIONAL BACKGROUND", "WORKING EXPERIENCE", "JOB EXPERIENCES",
+                         "WORK EXPERIENCES"]:
         return "experience"
-    if line_stripped == "SKILLS" or line_stripped == "TECHNICAL SKILLS":
+
+    # Handle "EXPERIENCE: X years" pattern
+    if line_stripped.startswith("EXPERIENCE") and ("YEAR" in line_stripped or "MONTH" in line_stripped):
+        return "experience"
+
+    # Skills variations
+    if line_stripped in ["SKILLS", "TECHNICAL SKILLS", "CORE COMPETENCIES", "COMPETENCIES",
+                         "SKILL SET", "TECHNICAL EXPERTISE", "CORE SKILLS", "KEY SKILLS",
+                         "PROFESSIONAL SKILLS", "TOOLS AND TECHNOLOGIES", "TECHNOLOGIES",
+                         "LANGUAGES AND TOOLS", "LANGUAGES TOOLS AND TECHNOLOGIES",
+                         "LANGUAGES TOOLS TECHNOLOGIES", "TOOLS TECHNOLOGIES WEB SERVERS",
+                         "TOOLS TECHNOLOGIES", "TOOLS", "PROGRAMMING LANGUAGES",
+                         "TECHNOLOGY STACK", "TECH STACK", "TECHNICAL PROFICIENCY",
+                         "AREAS OF EXPERTISE"]:
         return "skills"
-    if line_stripped == "PROJECTS":
+
+    # Handle comma-separated skills headers
+    if "TOOLS" in line_stripped and "TECHNOLOG" in line_stripped:
+        return "skills"
+    if "LANGUAGE" in line_stripped and "TOOLS" in line_stripped:
+        return "skills"
+
+    # Education variations
+    if line_stripped in ["EDUCATION", "EDUCATIONAL BACKGROUND", "ACADEMIC BACKGROUND",
+                         "QUALIFICATIONS", "ACADEMIC QUALIFICATIONS", "EDUCATIONAL QUALIFICATIONS",
+                         "DEGREES", "ACADEMIC RECORD", "EDUCATIONAL DETAILS", "ACADEMIC DETAILS",
+                         "ACADEMICS", "EDUCATIONAL HISTORY", "ACADEMIC HISTORY", "EDUCATIONAL",
+                         "EDUCATION HISTORY", "EDUCATION DETAILS"]:
+        return "education"
+
+    # Projects variations
+    if line_stripped in ["PROJECTS", "PROJECT", "KEY PROJECTS", "PERSONAL PROJECTS",
+                         "ACADEMIC PROJECTS", "PROFESSIONAL PROJECTS", "PROJECT EXPERIENCE",
+                         "PROJECT WORK", "PROJECT DETAILS", "PROJECT DESCRIPTION",
+                         "MAJOR PROJECTS", "RELEVANT PROJECTS", "PROJECT SUMMARY"]:
         return "projects"
-    if line_stripped == "SUMMARY" or line_stripped == "PROFESSIONAL SUMMARY":
+
+    # Summary variations
+    if line_stripped in ["SUMMARY", "PROFESSIONAL SUMMARY", "CAREER SUMMARY", "EXECUTIVE SUMMARY",
+                         "PROFILE", "PROFESSIONAL PROFILE", "CAREER PROFILE", "PROFILE SUMMARY",
+                         "CAREER OVERVIEW", "OVERVIEW", "ABOUT", "CAREER OBJECTIVE"]:
         return "summary"
-    if line_stripped in ["RELATED COURSEWORK", "COURSEWORK", "RELEVANT COURSEWORK", "ACADEMIC COURSEWORK"]:
+
+    # Courses/Training variations
+    if line_stripped in ["COURSES", "COURSEWORK", "RELATED COURSEWORK", "RELEVANT COURSEWORK",
+                         "ACADEMIC COURSEWORK", "COURSE WORK", "TRAINING", "TRAININGS",
+                         "TRAINING PROGRAMS", "PROFESSIONAL DEVELOPMENT", "WORKSHOPS",
+                         "CERTIFICATIONS AND TRAINING"]:
         return "courses"
 
-    # > continue with your existing logic for other cases
-    section_name = None
+    # Certifications variations
+    if line_stripped in ["CERTIFICATIONS", "CERTIFICATES", "PROFESSIONAL CERTIFICATIONS",
+                         "LICENSES", "CERTIFICATION", "PROFESSIONAL LICENSES", "CREDENTIALS",
+                         "CERTIFIED COURSES"]:
+        return "certifications"
 
-    # > check RESUME_SECTIONS_DICT
+    # Achievements variations
+    if line_stripped in ["ACHIEVEMENTS", "ACCOMPLISHMENTS", "AWARDS", "HONORS", "RECOGNITION",
+                         "ACCOLADES", "AWARDS AND HONORS", "AWARDS AND ACHIEVEMENTS",
+                         "HONORS AND AWARDS", "ADDITIONAL EXPERIENCE AND AWARDS",
+                         "CERTIFICATES AWARDS ACHIEVEMENTS"]:
+        return "achievements"
+
+    # Activities/Interests variations
+    if line_stripped in ["ACTIVITIES", "EXTRACURRICULAR ACTIVITIES", "EXTRA CURRICULAR ACTIVITIES",
+                         "VOLUNTEER", "VOLUNTEER WORK", "COMMUNITY SERVICE", "AGILE TOOLS"]:
+        return "activities"
+
+    if line_stripped in ["INTERESTS", "HOBBIES", "PERSONAL INTERESTS", "HOBBIES AND INTERESTS"]:
+        return "interests"
+
+    # Other sections
+    if line_stripped in ["OBJECTIVE", "CAREER OBJECTIVE", "PROFESSIONAL OBJECTIVE", "GOAL"]:
+        return "objective"
+
+    if line_stripped in ["PUBLICATIONS", "RESEARCH", "PAPERS", "CONFERENCE PAPERS"]:
+        return "publications"
+
+    if line_stripped in ["REFERENCES", "PROFESSIONAL REFERENCES", "RECOMMENDATIONS"]:
+        return "references"
+
+    if line_stripped in ["CONTACT", "CONTACT INFORMATION", "CONTACT DETAILS"]:
+        return "introduction"
+
+    # > Fallback: check RESUME_SECTIONS_DICT with regex
+    section_name = None
     for key in RESUME_SECTIONS_DICT:
         if contains_keyword(line, RESUME_SECTIONS_DICT[key]):
             section_name = key
             break
 
-    # > if still no match, try to infer from strong keywords
+    # > Final fallback: infer from keywords in line
     if not section_name:
-        line_lower = line.lower().strip()
-        if any(term in line_lower for term in ["experience", "work", "employment", "career"]):
+        line_lower = line_clean.lower()
+
+        # Experience keywords
+        if any(term in line_lower for term in ["experience", "employment", "work history",
+                                                 "job history", "career", "work"]):
             section_name = "experience"
-        elif any(term in line_lower for term in ["education", "academic", "qualification", "degree"]):
+        # Education keywords
+        elif any(term in line_lower for term in ["education", "academic", "qualification",
+                                                   "degree", "scholastic"]):
             section_name = "education"
-        elif any(term in line_lower for term in ["skill", "competenc", "technical", "expertise"]):
+        # Skills keywords
+        elif any(term in line_lower for term in ["skill", "competenc", "technical", "expertise",
+                                                   "tools", "technolog", "programming"]):
             section_name = "skills"
-        elif any(term in line_lower for term in ["project", "development", "implementation"]):
+        # Projects keywords
+        elif any(term in line_lower for term in ["project"]):
             section_name = "projects"
-        elif any(term in line_lower for term in ["coursework", "course work"]):
-            section_name = "courses"  # > specifically for coursework sections
-        elif any(term in line_lower for term in ["certification", "certificate"]):
-            section_name = "certifications"  # For certifications only
-        elif any(term in line_lower for term in ["training", "workshop"]):
-            section_name = "courses"  # > training goes to courses
+        # Courses keywords
+        elif any(term in line_lower for term in ["coursework", "course work", "training"]):
+            section_name = "courses"
+        # Certifications keywords
+        elif any(term in line_lower for term in ["certification", "certificate", "license"]):
+            section_name = "certifications"
+        # Achievements keywords
         elif any(term in line_lower for term in ["achievement", "accomplishment", "award", "honor"]):
             section_name = "achievements"
-        elif any(term in line_lower for term in ["summary", "profile", "overview","professional summary"]):
+        # Summary keywords
+        elif any(term in line_lower for term in ["summary", "profile", "overview"]):
             section_name = "summary"
+        # Activities keywords
+        elif any(term in line_lower for term in ["activities", "volunteer", "extracurricular"]):
+            section_name = "activities"
+        # Interests keywords
+        elif any(term in line_lower for term in ["interest", "hobbies"]):
+            section_name = "interests"
+
     return section_name
 
 
