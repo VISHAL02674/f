@@ -81,6 +81,7 @@ RESUME_SECTIONS_DICT = {
         r".*workexperience.*",
         r"professional[\s]{0,}experience[s]?",
         r"job[\s]{0,}experience[s]?",
+        r"job[\s]{0,}profile",
         r"employment[\s]{0,}history",
         r"career[\s]{0,}history",
         r"work[\s]{0,}history",
@@ -89,19 +90,20 @@ RESUME_SECTIONS_DICT = {
         r"professional[\s]{0,}background",
         r"career[\s]{0,}background",
         r"experience[\s]*:?[\s]*\d*[\s]*\w*",  # Handles "EXPERIENCE: 4 years"
+        r"roles[\s]{0,}and[\s]{0,}responsibilities",
         r"experience[s]?",
         r"employment",
         r"appointments",
         r"previous[\s]{0,}positions",
         r"business[\s]{0,}exposure",
         r"current[\s]{0,}profile",
-        r"job[\s]{0,}profile",
         r"working[\s]{0,}experience",
         r"work[\s]{0,}exp",
         "experience",
         "professional experience",
         "work experience",
         "job experience",
+        "job profile",
         "employment history",
         "career history",
         "work history",
@@ -114,7 +116,9 @@ RESUME_SECTIONS_DICT = {
         "employment",
         "job experiences",
         "work experiences",
-        "working experience"
+        "working experience",
+        "roles and responsibilities",
+        "responsibilities"
     ],
     "education": [
         r"education(al)?[\s]{0,}",
@@ -132,6 +136,7 @@ RESUME_SECTIONS_DICT = {
         "academic background",
         "academic history",
         "qualifications",
+        "qualification",
         "academic qualifications",
         "educational background",
         "educational qualifications",
@@ -667,7 +672,8 @@ def determine_section_name(line):
                          "EMPLOYMENT HISTORY", "CAREER HISTORY", "WORK HISTORY", "JOB HISTORY",
                          "EMPLOYMENT", "CAREER", "WORK", "EMPLOYMENT BACKGROUND", "CAREER BACKGROUND",
                          "PROFESSIONAL BACKGROUND", "WORKING EXPERIENCE", "JOB EXPERIENCES",
-                         "WORK EXPERIENCES"]:
+                         "WORK EXPERIENCES", "JOB PROFILE", "ROLES AND RESPONSIBILITIES",
+                         "RESPONSIBILITIES"]:
         return "experience"
 
     # Handle "EXPERIENCE: X years" pattern
@@ -693,7 +699,7 @@ def determine_section_name(line):
 
     # Education variations
     if line_stripped in ["EDUCATION", "EDUCATIONAL BACKGROUND", "ACADEMIC BACKGROUND",
-                         "QUALIFICATIONS", "ACADEMIC QUALIFICATIONS", "EDUCATIONAL QUALIFICATIONS",
+                         "QUALIFICATIONS", "QUALIFICATION", "ACADEMIC QUALIFICATIONS", "EDUCATIONAL QUALIFICATIONS",
                          "DEGREES", "ACADEMIC RECORD", "EDUCATIONAL DETAILS", "ACADEMIC DETAILS",
                          "ACADEMICS", "EDUCATIONAL HISTORY", "ACADEMIC HISTORY", "EDUCATIONAL",
                          "EDUCATION HISTORY", "EDUCATION DETAILS"]:
