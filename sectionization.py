@@ -715,7 +715,8 @@ def determine_section_name(line):
     # Summary variations
     if line_stripped in ["SUMMARY", "PROFESSIONAL SUMMARY", "CAREER SUMMARY", "EXECUTIVE SUMMARY",
                          "PROFILE", "PROFESSIONAL PROFILE", "CAREER PROFILE", "PROFILE SUMMARY",
-                         "CAREER OVERVIEW", "OVERVIEW", "ABOUT", "CAREER OBJECTIVE"]:
+                         "CAREER OVERVIEW", "OVERVIEW", "ABOUT", "CAREER OBJECTIVE",
+                         "PROFESSIONAL SNAPSHOT"]:
         return "summary"
 
     # Courses/Training variations
@@ -758,6 +759,16 @@ def determine_section_name(line):
 
     if line_stripped in ["CONTACT", "CONTACT INFORMATION", "CONTACT DETAILS"]:
         return "introduction"
+
+    # Personal details
+    if line_stripped in ["PERSONAL DETAILS", "PERSONAL INFORMATION", "PERSONAL DATA",
+                         "PERSONAL", "ADDITIONAL INFORMATION", "OTHER INFORMATION"]:
+        return "personal_details"
+
+    # Languages
+    if line_stripped in ["LANGUAGES", "LANGUAGES KNOWN", "LANGUAGE PROFICIENCY",
+                         "LANGUAGE SKILLS", "SPOKEN LANGUAGES"]:
+        return "languages"
 
     # > Fallback: check RESUME_SECTIONS_DICT with regex
     section_name = None
